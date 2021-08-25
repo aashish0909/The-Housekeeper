@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const housekeeperSchema = new Schema({
 	workerID: {
-		type: String,
+		type: Number,
 		required: [true, "Please enter your Housekeeper ID"],
 	},
 	name: {
@@ -18,7 +18,7 @@ const housekeeperSchema = new Schema({
 		type: Number,
 		required: true,
 	},
-	rooms_cleaned: {
+	roomsCleaned: {
 		type: Number,
 		default: 0
 	},

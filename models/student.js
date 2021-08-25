@@ -12,7 +12,7 @@ const studentSchema = new Schema({
 		minlength: [8, "Minimum password length must be 8 characters"],
 	},
 	room: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 	floor: {

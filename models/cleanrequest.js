@@ -18,7 +18,7 @@ const cleanrequestSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	req_status: {
+	reqStatus: {
 		type: Boolean,
 		default: false,
 	},
