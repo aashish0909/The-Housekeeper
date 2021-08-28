@@ -1,14 +1,13 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const bodyParser = require("body-parser")
 const cors = require("cors")
 const config = require('config')
 mongoose.promise = global.promise
 
 const app = express()
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
