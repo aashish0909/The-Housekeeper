@@ -5,6 +5,6 @@ const authStudentMiddleware = require('../middlewares/authStudentMiddleware')
 
 router.post('/signup', authStudentController.signup)
 router.post('/login', authStudentController.login)
-router.get('/user', authStudentMiddleware, authStudentController.get_user)
+router.get('/get_user', authStudentMiddleware, authStudentController.get_user)
 
 module.exports = router
