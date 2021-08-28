@@ -27,4 +27,4 @@ const housekeeperSchema = new Schema({
 		default: 0	},
 })
 
-module.exports = housekeeper = mongoose.model("housekeeper", housekeeperSchema)
+module.exports = Housekeeper = mongoose.model("housekeeper", housekeeperSchema)

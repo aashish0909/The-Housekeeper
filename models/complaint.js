@@ -20,4 +20,4 @@ const complaintSchema = new Schema({
 	},
 })
 
-module.exports = complaint = mongoose.model("complaint", complaintSchema)
+module.exports = Complaint = mongoose.model("complaint", complaintSchema)

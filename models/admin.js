@@ -6,10 +6,6 @@ const adminSchema = new Schema({
 		type: Number,
 		required: [true, "Please enter your ID"],
 	},
-	username: {
-		type: String,
-		required: true,
-	},
 	password: {
 		type: String,
 		required: [true, "Please enter a valid password"],
@@ -21,4 +17,4 @@ const adminSchema = new Schema({
 	},
 })
 
-module.exports = admin = mongoose.model("admin", adminSchema)
+module.exports = Admin = mongoose.model("admin", adminSchema)

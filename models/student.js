@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const studentSchema = new Schema({
 	rollNo: {
 		type: String,
-		required: [true, "Please enter your roll no."],
+		required: [true, "Please enter your roll no."]
 	},
 	password: {
 		type: String,
@@ -25,4 +25,4 @@ const studentSchema = new Schema({
 	},
 })
 
-module.exports = student = mongoose.model("student", studentSchema)
+module.exports = Student = mongoose.model("student", studentSchema)

@@ -20,4 +20,4 @@ const suggestionSchema = new Schema({
 	},
 })
 
-module.exports = suggestion = mongoose.model("suggestion", suggestionSchema)
+module.exports = Suggestion = mongoose.model("suggestion", suggestionSchema)

@@ -24,7 +24,7 @@ const cleanrequestSchema = new Schema({
 	},
 })
 
-module.exports = cleanrequest = mongoose.model(
+module.exports = Cleanrequest = mongoose.model(
 	"cleanrequest",
 	cleanrequestSchema
 )
