@@ -4,12 +4,13 @@ const Schema = mongoose.Schema
 const adminSchema = new Schema({
 	adminID: {
 		type: Number,
-		required: [true, "Please enter your ID"],
+		unique: true,
+		required: true,
 	},
 	password: {
 		type: String,
-		required: [true, "Please enter a valid password"],
-		minlength: [8, "Minimum password length must be 8 characters"],
+		required: true,
+		minlength: 8,
 	},
 	hostel: {
 		type: Number,

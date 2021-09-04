@@ -4,11 +4,12 @@ const Schema = mongoose.Schema
 const housekeeperSchema = new Schema({
 	workerID: {
 		type: Number,
-		required: [true, "Please enter your Housekeeper ID"],
+		unique:true,
+		required: true,
 	},
 	name: {
 		type: String,
-		required: [true, "Please enter your name"],
+		required: true
 	},
 	hostel: {
 		type: Number,
