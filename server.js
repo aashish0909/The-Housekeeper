@@ -23,7 +23,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 5000
 const dbURI = config.get('dbURI')
 mongoose
 .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -31,7 +31,10 @@ mongoose
 .catch((err) => console.log(err))
 
 const authStudent = require("./routes/authStudent")
-app.use("/api/users/student",authStudent)
+const authAdmin = require("./routes/authAdmin")
+
+app.use("/api/users/student", authStudent)
+app.use("/api/users/admin", authAdmin)
 
 app.listen(port, () => {
 	console.log(`Server running on port : ${port}`)
