@@ -15,9 +15,7 @@ module.exports.signup = (req, res) => {
 
 	Student.findOne({ rollNo: req.body.rollNo }).then((student) => {
 		if (student) {
-			return res
-				.status(400)
-				.json({ rollNo: "Roll No. already exists in the database" })
+			return res.status(400).json({ rollNo: "Roll No. already exists in the database" })
 		}
 
 		const newStudent = new Student({
@@ -29,7 +27,7 @@ module.exports.signup = (req, res) => {
 		})
 
 		bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(password, salt, (err, hash) => {
+			bcrypt.hash(req.body.password, salt, (err, hash) => {
 				if (err) throw err
 				newStudent.password = hash
 				newStudent
@@ -78,7 +76,10 @@ module.exports.login = (req, res) => {
 					if (err) throw err
 					res.json({
 						token,
-						user: { id: student._id },
+						user: {
+							id: student._id,
+							role: "STUDENT",
+						},
 					})
 				}
 			)
