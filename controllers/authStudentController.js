@@ -34,7 +34,7 @@ module.exports.signup = (req, res) => {
 					.save()
 					.then((student) => {
 						jwt.sign(
-							{ id: student._id },
+							{ id: student._id, role: "STUDENT" },
 							config.get("jwtsecret"),
 							{ expiresIn: 2592000 },
 							(err, token) => {
@@ -69,7 +69,7 @@ module.exports.login = (req, res) => {
 			if (!isMatch) return res.status(400).json({ msg: "Invalid Credentials" })
 
 			jwt.sign(
-				{ id: student._id },
+				{ id: student._id, role: "STUDENT" },
 				config.get("jwtsecret"),
 				{ expiresIn: 2592000 },
 				(err, token) => {

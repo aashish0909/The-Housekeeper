@@ -9,7 +9,9 @@ function authStudentMiddleware(req, res, next) {
 	try {
 		const decoded = jwt.verify(token, config.get("jwtsecret"))
 		req.user = decoded
-		next()
+		if(req.user.role==="STUDENT")
+			next()
+		else return res.status(401).json({msg:"Authorization denied"})
 	} catch (err) {
 		res.status(400).json({ msg: "Token is not valid" })
 	}
