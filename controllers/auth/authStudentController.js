@@ -1,19 +1,19 @@
-const Student = require("..//models/student")
+const Student = require("../../models/student")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const config = require("config")
 
-const validateRegisterInput = require("../validation/student/register")
-const validateLoginInput = require("../validation/student/login")
+const validateRegisterInput = require("../../validation/student/register")
+const validateLoginInput = require("../../validation/student/login")
 
-module.exports.signup = (req, res) => {
-	const { errors, isValid } = validateRegisterInput(req.body)
+module.exports.signup = async (req, res) => {
+	const { errors, isValid } = await validateRegisterInput(req.body)
 
 	if (!isValid) {
 		return res.status(400).json(errors)
 	}
 
-	Student.findOne({ rollNo: req.body.rollNo }).then((student) => {
+	await Student.findOne({ rollNo: req.body.rollNo }).then((student) => {
 		if (student) {
 			return res.status(400).json({ rollNo: "Roll No. already exists in the database" })
 		}
@@ -36,14 +36,11 @@ module.exports.signup = (req, res) => {
 						jwt.sign(
 							{ id: student._id, role: "STUDENT" },
 							config.get("jwtsecret"),
-							{ expiresIn: 2592000 },
+							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
 								res.json({
 									token,
-									user: {
-										id: student._id,
-									},
 								})
 							}
 						)
@@ -54,15 +51,15 @@ module.exports.signup = (req, res) => {
 	})
 }
 
-module.exports.login = (req, res) => {
-	const { errors, isValid } = validateLoginInput(req.body)
+module.exports.login = async (req, res) => {
+	const { errors, isValid } = await validateLoginInput(req.body)
 
 	if (!isValid) return res.status(400).json(errors)
 
 	const rollNo = req.body.rollNo
 	const password = req.body.password
 
-	Student.findOne({ rollNo }).then((student) => {
+	await Student.findOne({ rollNo }).then((student) => {
 		if (!student) return res.status(404).json("User does not exist")
 
 		bcrypt.compare(password, student.password).then((isMatch) => {
@@ -71,15 +68,11 @@ module.exports.login = (req, res) => {
 			jwt.sign(
 				{ id: student._id, role: "STUDENT" },
 				config.get("jwtsecret"),
-				{ expiresIn: 2592000 },
+				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err
 					res.json({
 						token,
-						user: {
-							id: student._id,
-							role: "STUDENT",
-						},
 					})
 				}
 			)
@@ -88,7 +81,7 @@ module.exports.login = (req, res) => {
 }
 
 module.exports.get_user = (req, res) => {
-	Student.findById(req.body.id)
+	Student.findById(req.user.id)
 		.select("-password")
 		.then((student) => res.json(student))
 }

@@ -1,19 +1,19 @@
-const Admin = require("..//models/admin")
+const Admin = require("../../models/admin")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const config = require("config")
 
-const validateRegisterInput = require("../validation/admin/register")
-const validateLoginInput = require("../validation/admin/login")
+const validateRegisterInput = require("../../validation/admin/register")
+const validateLoginInput = require("../../validation/admin/login")
 
-module.exports.signup = (req, res) => {
-	const { errors, isValid } = validateRegisterInput(req.body)
+module.exports.signup = async (req, res) => {
+	const { errors, isValid } = await validateRegisterInput(req.body)
 
 	if (!isValid) {
 		return res.status(400).json(errors)
 	}
 
-	Admin.findOne({ adminID: req.body.adminID }).then((admin) => {
+	await Admin.findOne({ adminID: req.body.adminID }).then((admin) => {
 		if (admin) {
 			return res.status(400).json({ rollNo: "Admin ID already exists in the database" })
 		}
@@ -37,15 +37,11 @@ module.exports.signup = (req, res) => {
 								role: "ADMIN",
 							},
 							config.get("jwtsecret"),
-							{ expiresIn: 2592000 },
+							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
 								res.json({
 									token,
-									user: {
-										id: admin._id,
-										role: "ADMIN",
-									},
 								})
 							}
 						)
@@ -56,15 +52,15 @@ module.exports.signup = (req, res) => {
 	})
 }
 
-module.exports.login = (req, res) => {
-	const { errors, isValid } = validateLoginInput(req.body)
+module.exports.login = async (req, res) => {
+	const { errors, isValid } = await validateLoginInput(req.body)
 
 	if (!isValid) return res.status(400).json(errors)
 
 	const adminID = req.body.adminID
 	const password = req.body.password
 
-	Admin.findOne({ adminID }).then((admin) => {
+	await Admin.findOne({ adminID }).then((admin) => {
 		if (!admin) return res.status(404).json("Admin does not exist")
 
 		bcrypt.compare(password, admin.password).then((isMatch) => {
@@ -76,15 +72,11 @@ module.exports.login = (req, res) => {
 					role: "ADMIN",
 				},
 				config.get("jwtsecret"),
-				{ expiresIn: 2592000 },
+				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err
 					res.json({
 						token,
-						user: {
-							id: admin._id,
-							role: "ADMIN",
-						},
 					})
 				}
 			)
@@ -93,7 +85,9 @@ module.exports.login = (req, res) => {
 }
 
 module.exports.get_user = (req, res) => {
-	Admin.findById(req.body.id)
+	Admin.findById(req.user.id)
 		.select("-password")
 		.then((admin) => res.json(admin))
 }
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzRmYTkzYTgwYTU5YTJjNTQxZjc1NiIsInJvbGUiOiJTVFVERU5UIiwiaWF0IjoxNjMwODYyMDU2LCJleHAiOjE2MzM0NTQwNTZ9.MSJrdI4w1JaYamyosEnuOtupnoxT5MwmU727xxGYnq4

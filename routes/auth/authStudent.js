@@ -1,7 +1,7 @@
 const { Router } = require('express')
-const authStudentController = require('../controllers/authStudentController')
+const authStudentController = require('../../controllers/auth/authStudentController')
 const router = Router()
-const authStudentMiddleware = require('../middlewares/authStudentMiddleware')
+const authStudentMiddleware = require('../../middlewares/authStudentMiddleware')
 
 router.post('/signup', authStudentController.signup)
 router.post('/login', authStudentController.login)
