@@ -30,11 +30,12 @@ mongoose
 .then(() => console.log("Connected to the Database"))
 .catch((err) => console.log(err))
 
-const authStudent = require("./routes/authStudent")
-const authAdmin = require("./routes/authAdmin")
+const authStudent = require("./routes/auth/authStudent")
+const authAdmin = require("./routes/auth/authAdmin")
 
 app.use("/api/users/student", authStudent)
 app.use("/api/users/admin", authAdmin)
+// app.use("/api/requests/",require("./routes/request"))
 
 app.listen(port, () => {
 	console.log(`Server running on port : ${port}`)

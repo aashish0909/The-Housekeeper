@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const cleanrequestSchema = new Schema({
-	requestID: {
-		type: Number,
-		required: true,
+	student: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "student"
 	},
 	rollNo: {
 		type: Number,
@@ -12,15 +12,26 @@ const cleanrequestSchema = new Schema({
 	},
 	workerID: {
 		type: Number,
-		required: true,
 	},
 	date: {
 		type: Date,
-		default: Date.now,
+		required : true
+	},
+	room: {
+		type: Number,
+		required : true,
+	},
+	floor: {
+		type: Number,
+		required : true,
+	},
+	hostel: {
+		type: Number,
+		required : true,
 	},
 	reqStatus: {
-		type: Boolean,
-		default: false,
+		type: String,
+		default: "Worker not assigned",
 	},
 })
 
