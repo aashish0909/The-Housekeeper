@@ -6,28 +6,12 @@ const cleanrequestSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "student"
 	},
-	rollNo: {
-		type: Number,
-		required: true,
-	},
 	workerID: {
 		type: Number,
 	},
 	date: {
 		type: Date,
 		required : true
-	},
-	room: {
-		type: Number,
-		required : true,
-	},
-	floor: {
-		type: Number,
-		required : true,
-	},
-	hostel: {
-		type: Number,
-		required : true,
 	},
 	reqStatus: {
 		type: String,

@@ -32,10 +32,11 @@ mongoose
 
 const authStudent = require("./routes/auth/authStudent")
 const authAdmin = require("./routes/auth/authAdmin")
+const requests = require("./routes/request")
 
 app.use("/api/users/student", authStudent)
 app.use("/api/users/admin", authAdmin)
-// app.use("/api/requests/",require("./routes/request"))
+app.use("/api/requests/",requests)
 
 app.listen(port, () => {
 	console.log(`Server running on port : ${port}`)
