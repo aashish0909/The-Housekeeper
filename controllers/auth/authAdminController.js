@@ -89,5 +89,3 @@ module.exports.get_user = (req, res) => {
 		.select("-password")
 		.then((admin) => res.json(admin))
 }
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzRmYTkzYTgwYTU5YTJjNTQxZjc1NiIsInJvbGUiOiJTVFVERU5UIiwiaWF0IjoxNjMwODYyMDU2LCJleHAiOjE2MzM0NTQwNTZ9.MSJrdI4w1JaYamyosEnuOtupnoxT5MwmU727xxGYnq4
