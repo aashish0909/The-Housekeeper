@@ -4,9 +4,6 @@ const isEmpty = require("is-empty")
 function validateLoginInput(data) {
 	let errors = {}
 
-	data.rollNo = !isEmpty(data.rollNo) ? data.rollNo : ""
-	data.password = !isEmpty(data.password) ? data.password : ""
-
 	if (Validator.isEmpty(data.rollNo)) {
 		errors.rollNo = "Roll no. field is required"
 	}

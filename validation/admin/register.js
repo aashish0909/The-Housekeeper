@@ -1,30 +1,29 @@
-const Validator = require("validator")
+var validator = require("validator")
 const isEmpty = require("is-empty")
 
 function validateRegisterInput(data) {
 	let errors = {}
 
-	data.adminID = !isEmpty(data.adminID) ? data.adminID : ""
-	data.password = !isEmpty(data.password) ? data.password : ""
-	data.password2 = !isEmpty(data.password2) ? data.password2 : ""
-	data.hostel = !isEmpty(data.hostel) ? data.hostel : ""
-
-	if (Validator.isEmpty(data.adminID)) {
+	if (validator.isEmpty(data.adminID)) {
 		errors.adminID = "Admin ID field is required"
 	}
-
-	// Password checks
-	if (Validator.isEmpty(data.password)) {
+	if (validator.isEmpty(data.password)) {
 		errors.password = "Password field is required"
 	}
-	if (Validator.isEmpty(data.password2)) {
+	if (validator.isEmpty(data.password2)) {
 		errors.password2 = "Confirm password field is required"
 	}
-
-	if (!Validator.isLength(data.password, { min: 8, max: 30 })) {
-		errors.password = "Password must be at least 8 characters"
+	if (validator.isEmpty(data.hostel)) {
+		errors.hostel = "Hostel field is required"
 	}
-	if (!Validator.equals(data.password, data.password2)) {
+
+	if (!validator.isNumeric(data.adminID))
+		errors.adminID = "Admin ID can consist only numeric characters"
+	if (!validator.isStrongPassword(data.password)) {
+		errors.password =
+			"Password must be atleast of 8 characters and contain atleast one lowercase character,one uppercase character, one digit and one symbol"
+	}
+	if (!validator.equals(data.password, data.password2)) {
 		errors.password2 = "Passwords must match"
 	}
 	return {
