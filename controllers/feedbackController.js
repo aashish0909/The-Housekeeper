@@ -1,4 +1,5 @@
 const Feedback = require("../models/feedback")
+const Cleanrequest = require("../models/cleanrequest")
 const validateFeedback = require("../validation/feedback")
 
 module.exports.submitFeedback = async (req, res) => {
@@ -21,6 +22,7 @@ module.exports.submitFeedback = async (req, res) => {
 		timeIn: req.body.timeIn,
 		timeOut: req.body.timeOut,
 	})
+	await Cleanrequest.findByIdAndUpdate(req.body.requestID,{reqStatus:"Request Completed"})
 	const savedRequest = await newFeedback.save()
 	res.json({ success: true, savedRequest })
 }
