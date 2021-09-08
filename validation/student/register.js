@@ -24,9 +24,9 @@ function validateRegisterInput(data) {
 		errors.hostel = "Hostel field is required"
 	}
 
-	if (!validator.isAlphanumeric(data.rollNo))
+	if (!Validator.isAlphanumeric(data.rollNo))
 		errors.rollNo = "Roll No. can consist only alphabets and numbers"
-	if (!validator.isStrongPassword(data.password)) {
+	if (!Validator.isStrongPassword(data.password)) {
 		errors.password =
 			"Password must be atleast of 8 characters and contain atleast one lowercase character,one uppercase character, one digit and one symbol"
 	}

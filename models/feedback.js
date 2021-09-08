@@ -1,18 +1,19 @@
 const mongoose = require("mongoose")
+const cleanrequest = require("./cleanrequest")
 const Schema = mongoose.Schema
 
 const feedbackSchema = new Schema({
-	feedbackID: {
-		type: Number,
-		required: true,
-	},
-	rollNo: {
-		type: Number,
-		required: true,
-	},
 	requestID: {
-		type: Number,
-		required: true,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "cleanrequest",
+	},
+	feedbackType: {
+		type: String,
+		required:true
+	},
+	feedback: {
+		type: String,
+		required:true
 	},
 	rating: {
 		type: Number,

@@ -5,7 +5,7 @@ function validateCreateRequest(data) {
     let errors = {}
     
 	if (Validator.isEmpty(data.date)) {
-		errors.password = "Date and Time are required"
+		errors.date = "Date and Time are required"
     }
 
 	return {
