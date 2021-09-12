@@ -1,7 +1,7 @@
 const Student = require("../../models/student")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const config = require("config")
+require('dotenv').config()
 
 const validateRegisterInput = require("../../validation/student/register")
 const validateLoginInput = require("../../validation/student/login")
@@ -35,7 +35,7 @@ module.exports.signup = async (req, res) => {
 					.then((student) => {
 						jwt.sign(
 							{ id: student._id, role: "STUDENT" },
-							config.get("jwtsecret"),
+							config.get("process.env.JWT_SECRET"),
 							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
@@ -67,7 +67,7 @@ module.exports.login = async (req, res) => {
 
 			jwt.sign(
 				{ id: student._id, role: "STUDENT" },
-				config.get("jwtsecret"),
+				config.get("process.env.JWT_SECRET"),
 				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err

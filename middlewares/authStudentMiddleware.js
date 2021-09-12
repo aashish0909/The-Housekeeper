@@ -1,5 +1,5 @@
-const config = require("config")
-const jwt = require("jsonwebtoken")
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
 function authStudentMiddleware(req, res, next) {
 	const token = req.headers["x-access-token"]
@@ -7,7 +7,7 @@ function authStudentMiddleware(req, res, next) {
 	if (!token) return res.status(401).json({ msg: "Authorization denied" })
 
 	try {
-		const decoded = jwt.verify(token, config.get("jwtsecret"))
+		const decoded = jwt.verify(token, config.get("process.env.JWT_SECRET"))
 		req.user = decoded
 		if(req.user.role==="STUDENT")
 			next()

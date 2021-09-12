@@ -1,7 +1,7 @@
 const Admin = require("../../models/admin")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const config = require("config")
+require('dotenv').config()
 
 const validateRegisterInput = require("../../validation/admin/register")
 const validateLoginInput = require("../../validation/admin/login")
@@ -36,7 +36,7 @@ module.exports.signup = async (req, res) => {
 								id: admin._id,
 								role: "ADMIN",
 							},
-							config.get("jwtsecret"),
+							config.get("process.env.JWT_SECRET"),
 							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
@@ -71,7 +71,7 @@ module.exports.login = async (req, res) => {
 					id: admin._id,
 					role: "ADMIN",
 				},
-				config.get("jwtsecret"),
+				config.get("process.env.JWT_SECRET"),
 				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err
