@@ -35,7 +35,7 @@ module.exports.signup = async (req, res) => {
 					.then((student) => {
 						jwt.sign(
 							{ id: student._id, role: "STUDENT" },
-							config.get("process.env.JWT_SECRET"),
+							process.env.JWT_SECRET,
 							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
@@ -67,7 +67,7 @@ module.exports.login = async (req, res) => {
 
 			jwt.sign(
 				{ id: student._id, role: "STUDENT" },
-				config.get("process.env.JWT_SECRET"),
+				process.env.JWT_SECRET,
 				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err

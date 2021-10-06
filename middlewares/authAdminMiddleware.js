@@ -7,7 +7,7 @@ function authAdminMiddleware(req, res, next) {
 	if (!token) return res.status(401).json({ msg: "Authorization denied" })
 
 	try {
-		const decoded = jwt.verify(token, config.get("process.env.JWT_SECRET"))
+		const decoded = jwt.verify(token, process.env.JWT_SECRET)
 		req.user = decoded
 		// console.log(req.user.role)
 		if(req.user.role==="ADMIN")

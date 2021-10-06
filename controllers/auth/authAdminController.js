@@ -36,7 +36,7 @@ module.exports.signup = async (req, res) => {
 								id: admin._id,
 								role: "ADMIN",
 							},
-							config.get("process.env.JWT_SECRET"),
+							process.env.JWT_SECRET,
 							{ expiresIn: "1d" },
 							(err, token) => {
 								if (err) throw err
@@ -71,7 +71,7 @@ module.exports.login = async (req, res) => {
 					id: admin._id,
 					role: "ADMIN",
 				},
-				config.get("process.env.JWT_SECRET"),
+				process.env.JWT_SECRET,
 				{ expiresIn: "1d" },
 				(err, token) => {
 					if (err) throw err
